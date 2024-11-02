@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"httpserver/internal/config"
+	pgx "httpserver/internal/db/pgx"
+	db "httpserver/internal/db/sqlc"
 	"log"
 	"net"
 	"net/http"
@@ -21,12 +23,24 @@ func Run(
 ) error {
 
 	// Starting the DB
-	// db, err := db.NewDB(cfg)
-
+	dbConn, err := pgx.OpenDBConnection(ctx, &pgx.DBConfig{
+		Host:         cfg.DBHost,
+		Port:         cfg.DBPort,
+		Name:         cfg.DBName,
+		User:         cfg.DBUser,
+		Password:     cfg.DBPassword,
+		DisableTLS:   cfg.DBDisableTLS,
+		MaxOpenConns: cfg.DBMaxOpenConns,
+	})
+	if err != nil {
+		return fmt.Errorf("error opening the database connection: %w", err)
+	}
+	defer dbConn.Close(ctx)
+	store := db.New(dbConn)
 	// Starting the debug server if needed in a go routine, and handlign the wait group
 
 	// Starting the HTTP server with graceful shutdown
-	srv := NewServer(logger, nil)
+	srv := NewServer(logger, cfg, store)
 
 	server := &http.Server{
 		Addr:    net.JoinHostPort(cfg.Host, cfg.Port),

@@ -36,7 +36,7 @@ func Run(
 		return fmt.Errorf("error opening the database connection: %w", err)
 	}
 	defer dbConn.Close(ctx)
-	store := db.New(dbConn)
+	store := db.NewStore(dbConn)
 	// Starting the debug server if needed in a go routine, and handlign the wait group
 
 	// Starting the HTTP server with graceful shutdown

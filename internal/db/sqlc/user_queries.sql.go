@@ -10,38 +10,34 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (name, email)
+INSERT INTO users (email, hashed_password)
 VALUES ($1, $2)
-RETURNING id,
-    name,
-    email,
-    created_at
+RETURNING id, email, hashed_password, created_at, updated_at
 `
 
 type CreateUserParams struct {
-	Name  string
-	Email string
+	Email          string
+	HashedPassword []byte
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
-	row := q.db.QueryRow(ctx, createUser, arg.Name, arg.Email)
+	row := q.db.QueryRow(ctx, createUser, arg.Email, arg.HashedPassword)
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
 		&i.Email,
+		&i.HashedPassword,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
 
 const getUserByID = `-- name: GetUserByID :one
-SELECT id,
-    name,
-    email,
-    created_at
+SELECT id, email, hashed_password, created_at, updated_at
 FROM users
 WHERE id = $1
+LIMIT 1
 `
 
 func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
@@ -49,9 +45,10 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
 		&i.Email,
+		&i.HashedPassword,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }

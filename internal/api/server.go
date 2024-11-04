@@ -14,7 +14,7 @@ import (
 func NewServer(
 	logger *logger.Logger,
 	cfg *config.Config,
-	store *db.Queries,
+	store *db.Store,
 
 ) http.Handler {
 

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"httpserver/internal/logger"
 	"httpserver/internal/models"
 	"httpserver/internal/services"
@@ -9,8 +10,9 @@ import (
 )
 
 type UserHandler struct {
-	Logger *logger.Logger
-	WebApp *web.WebApp
+	Logger      *logger.Logger
+	WebApp      *web.WebApp
+	userService *services.UserService
 }
 
 func NewUserHandler(
@@ -19,8 +21,9 @@ func NewUserHandler(
 	userService *services.UserService,
 ) *UserHandler {
 	return &UserHandler{
-		WebApp: webApp,
-		Logger: logger,
+		WebApp:      webApp,
+		Logger:      logger,
+		userService: userService,
 	}
 }
 
@@ -45,9 +48,17 @@ func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) error {
-	var nu models.User
+	var nu models.CreateUserParams
 	if err := web.Decode(w, r, &nu); err != nil {
 		return web.NewError(err, http.StatusBadRequest)
 	}
+
+	n, err := h.userService.CreateUser(r.Context(), nu.Email, []byte(nu.Password))
+	if err != nil {
+		return web.NewError(err, http.StatusInternalServerError)
+	}
+
+	fmt.Println(n)
+
 	return web.Response(w, r, http.StatusCreated, nu)
 }

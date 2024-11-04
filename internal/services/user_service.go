@@ -8,28 +8,29 @@ import (
 
 // UserService defines methods for user operations.
 type UserService struct {
-	queries *db.Queries
+	store *db.Store
 }
 
 // NewUserService creates a new UserService.
-func NewUserService(store *db.Queries) *UserService {
+func NewUserService(store *db.Store) *UserService {
 	return &UserService{
-		queries: store,
+		store: store,
 	}
 }
 
 // CreateUser creates a new user.
-func (s *UserService) CreateUser(ctx context.Context, name, email string) (*models.User, error) {
-	user, err := s.queries.CreateUser(ctx, db.CreateUserParams{
-		Name:  name,
-		Email: email,
+func (s *UserService) CreateUser(ctx context.Context, email string, hashedPassword []byte) (*models.User, error) {
+	user, err := s.store.CreateUser(ctx, db.CreateUserParams{
+		Email:          email,
+		HashedPassword: hashedPassword,
 	})
 	if err != nil {
 		return nil, err
 	}
 	return &models.User{
-		ID:    int(user.ID),
-		Name:  user.Name,
-		Email: user.Email,
+		ID:        int(user.ID),
+		Email:     user.Email,
+		CreatedAt: user.CreatedAt.Time.UTC().String(),
+		UpdatedAt: user.UpdatedAt.Time.UTC().String(),
 	}, nil
 }

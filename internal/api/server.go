@@ -4,21 +4,21 @@ import (
 	"httpserver/internal/config"
 	db "httpserver/internal/db/sqlc"
 	"httpserver/internal/handlers"
+	"httpserver/internal/logger"
 	"httpserver/internal/middleware"
 	"httpserver/internal/services"
 	"httpserver/internal/web"
-	"log"
 	"net/http"
 )
 
 func NewServer(
-	logger *log.Logger,
+	logger *logger.Logger,
 	cfg *config.Config,
 	store *db.Queries,
 
 ) http.Handler {
 
-	app := web.NewApp(middleware.Error())
+	app := web.NewApp(middleware.Logger(logger), middleware.Error())
 
 	// Creating the services
 	userService := services.NewUserService(store)

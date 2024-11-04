@@ -1,20 +1,20 @@
-# How I write HTTP server in Go
+# How I Build HTTP Servers in Go
 
 ## 1. Introduction
 
-For me the main subject of the project is not how to write a REST HTTP server, in the end a REST HTTP server is just a layer in the application and If I put my focus on it, I will lose the big picture. The main subject is how to write a clean and maintainable code.
+In my approach to projects, the primary focus isn't on how to write a RESTful HTTP server. After all, a RESTful HTTP server is just one layer of an application. If I concentrate solely on that, I risk losing sight of the bigger picture. The main objective is to develop code that is clean and maintainable.
 
-for example in the futrue if I wanted to support gRPC or GraphQL, I should be able to do it without changing the whole application.
+For example, if I decide to add support for gRPC or GraphQL in the future, I should be able to implement it without overhauling the entire application.
 
-for that I need to focus on the business logic and the domain model, and make the HTTP server just a layer that connects the domain model with the outside world.
+To facilitate this, I concentrate on the business logic and the domain model, treating the HTTP server as a layer that connects the domain model to the outside world.
 
 ## 2. Project Architecture Patterns
 
-For me when I am starting a new project, I always start with the project structure, because it will help me to think about the project in a high level.
+When starting a new project, I begin by establishing the project structure because it helps me conceptualize the project at a high level.
 
-And I don't want to over-engineer the project structure, I just want to make it simple and easy to understand.
+I strive to avoid over-engineering the project structure; my goal is to keep it simple and easy to understand.
 
-for that I love working with two main project structures:
+With that in mind, I enjoy working with two main project structures:
 
 ### **HSR**: Handler, Service, Repository structure:
 

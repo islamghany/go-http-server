@@ -1,20 +1,20 @@
 package handlers
 
 import (
+	"httpserver/internal/logger"
 	"httpserver/internal/models"
 	"httpserver/internal/services"
 	"httpserver/internal/web"
-	"log"
 	"net/http"
 )
 
 type UserHandler struct {
-	Logger *log.Logger
+	Logger *logger.Logger
 	WebApp *web.WebApp
 }
 
 func NewUserHandler(
-	logger *log.Logger,
+	logger *logger.Logger,
 	webApp *web.WebApp,
 	userService *services.UserService,
 ) *UserHandler {

@@ -6,7 +6,7 @@ import (
 	"httpserver/internal/config"
 	pgx "httpserver/internal/db/pgx"
 	db "httpserver/internal/db/sqlc"
-	"log"
+	"httpserver/internal/logger"
 	"net"
 	"net/http"
 	"os"
@@ -18,7 +18,7 @@ import (
 // The run function is like the main function, except that it takes in operating system fundamentals as arguments, and returns an error.
 func Run(
 	ctx context.Context,
-	logger *log.Logger,
+	logger *logger.Logger,
 	cfg *config.Config,
 ) error {
 
@@ -49,7 +49,8 @@ func Run(
 	shutdownError := make(chan error)
 
 	go func() {
-		logger.Println("Starting the HTTP server on", server.Addr)
+		// logger.Println("Starting the HTTP server on", server.Addr)
+		logger.Info(ctx, "Starting the HTTP server on", "address", server.Addr)
 		shutdownError <- server.ListenAndServe()
 	}()
 
@@ -61,7 +62,7 @@ func Run(
 		return fmt.Errorf("error starting the server: %w", err)
 	case err := <-shutdownChan:
 		{
-			logger.Println("Shutting down the server...", err)
+			logger.Info(ctx, "Shutting down the server...", "signal", err)
 			// create a timeout context that carries the deadline
 			ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 			defer cancel()

@@ -16,12 +16,12 @@ func LoadConfig() *Config {
 	return &Config{
 		Host:           "localhost",
 		Port:           "8080",
-		DBName:         "mydb",
-		DBUser:         "name",
-		DBPassword:     "password",
-		DBDisableTLS:   false,
+		DBName:         "blogdb",
+		DBUser:         "root",
+		DBPassword:     "secret",
+		DBDisableTLS:   true,
 		DBMaxOpenConns: 10,
 		DBHost:         "localhost",
-		DBPort:         "5432",
+		DBPort:         "5321",
 	}
 }

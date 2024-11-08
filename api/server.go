@@ -18,7 +18,7 @@ func NewServer(
 
 ) http.Handler {
 
-	app := web.NewApp(middleware.Logger(logger), middleware.Error())
+	app := web.NewApp(middleware.Logger(logger), middleware.Error(logger), middleware.Panic())
 
 	// Creating the services
 	userService := services.NewUserService(store)

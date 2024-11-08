@@ -9,3 +9,6 @@
 {"time":"2024-11-04T11:10:29.743117197+02:00","level":"INFO","file":"logger_middleware.go:20","msg":"request started","service":"your-app-name","method":"GET","path":"/v1/users","remote_addr":"127.0.0.1:38564","trace_id":"4acf3494-0257-4a03-86fa-8289c40a540e"}
 {"time":"2024-11-04T11:10:29.743336667+02:00","level":"INFO","file":"logger_middleware.go:23","msg":"request completed","service":"your-app-name","method":"GET","path":"/v1/users","remote_addr":"127.0.0.1:38564","status":200,"since":"0 ms","trace_id":"4acf3494-0257-4a03-86fa-8289c40a540e"}
 {"time":"2024-11-04T11:13:15.071491027+02:00","level":"INFO","file":"api.go:65","msg":"Shutting down the server...","service":"your-app-name","signal":2,"trace_id":"0000-0000-0000-0000"}
+{"time":"2024-11-08T19:07:32.267113099+02:00","level":"INFO","file":"main.go:58","msg":"Starting the application...","service":"your-app-name","build":"development","version":"v0.0.0","trace_id":"0000-0000-0000-0000"}
+{"time":"2024-11-08T19:07:32.273223117+02:00","level":"INFO","file":"api.go:53","msg":"Starting the HTTP server on","service":"your-app-name","address":"localhost:8080","trace_id":"0000-0000-0000-0000"}
+{"time":"2024-11-08T19:12:15.511885403+02:00","level":"INFO","file":"api.go:65","msg":"Shutting down the server...","service":"your-app-name","signal":2,"trace_id":"0000-0000-0000-0000"}

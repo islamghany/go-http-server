@@ -7,8 +7,6 @@ import (
 	"httpserver/internal/config"
 	"httpserver/internal/web"
 	"httpserver/pkg/logger"
-	"io"
-	"log"
 	"os"
 )
 
@@ -30,12 +28,12 @@ func main() {
 	}
 
 	// Create a logger for the application.
-	logFile, err := os.OpenFile("logs.jsonl", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Fatalf("Failed to open log file: %v", err)
-	}
-	defer logFile.Close()
-	multiWriter := io.MultiWriter(os.Stdout, logFile)
+	// logFile, err := os.OpenFile("logs.jsonl", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// if err != nil {
+	// 	log.Fatalf("Failed to open log file: %v", err)
+	// }
+	// defer logFile.Close()
+	// multiWriter := io.MultiWriter(os.Stdout, logFile)
 	minLevel := logger.LevelInfo
 	if build == "development" {
 		minLevel = logger.LevelDebug
@@ -48,7 +46,7 @@ func main() {
 		},
 	}
 
-	logger := logger.NewWithEvents(multiWriter, minLevel, "your-app-name", traceIDFunc, events)
+	logger := logger.NewWithEvents(os.Stdout, minLevel, "your-app-name", traceIDFunc, events)
 
 	// Load the configuration for the application.
 	cfg := config.LoadConfig() // any config for now

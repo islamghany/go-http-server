@@ -3,16 +3,16 @@ package middleware
 import (
 	"fmt"
 	"httpserver/internal/web"
+	"httpserver/pkg/logger"
 	"httpserver/pkg/validator"
-	"log"
 	"net/http"
 )
 
-func Error() web.Middleware {
+func Error(log *logger.Logger) web.Middleware {
 	return func(handler web.Handler) web.Handler {
 		h := func(w http.ResponseWriter, r *http.Request) error {
 			if err := handler(w, r); err != nil {
-				log.Println(err)
+
 				var er web.ErrorDocument
 				var status int
 				switch {
@@ -41,6 +41,7 @@ func Error() web.Middleware {
 					}
 					status = http.StatusInternalServerError
 				}
+				log.Error(r.Context(), "server-error", err)
 				if err = web.Response(w, r, status, er); err != nil {
 					return fmt.Errorf("sending error: %w", err)
 				}

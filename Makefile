@@ -4,11 +4,22 @@
 SHELL_PATH = /bin/ash
 SHELL = $(if $(wildcard $(SHELL_PATH)),/bin/ash,/bin/bash)
 
+WEB_APP_VERSION = 0.0.1
+WEB_APP_NAME = app_name
+
 MIGRATION_PATH = ./internal/db/migrations
 DATABASE_URL = postgres://root:secret@localhost:5321/blogdb?sslmode=disable
 
+
 run:
 	go run cmd/app_name/main.go
+
+build-dev:
+	go build  -ldflags "-X main.version=$(WEB_APP_VERSION) -X main.build=development" -o bin/app_name cmd/app_name/main.go
+
+build-prod:
+	go build -ldflags "-X main.version=$(WEB_APP_VERSION) -X main.build=production" -o bin/app_name cmd/app_name/main.go 
+
 
 
 migrate/new:

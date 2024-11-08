@@ -36,6 +36,9 @@ func (h *UserHandler) RegisterRoutes() {
 
 func (h *UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) error {
 	s := []string{"user1", "user2", "user3"}
+	f := 0
+	t := 10 / f
+	fmt.Println(t)
 	return web.Response(w, r, http.StatusOK, s)
 }
 

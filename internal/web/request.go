@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"httpserver/internal/validator"
+	"httpserver/pkg/validator"
 	"net/http"
 	"strconv"
 

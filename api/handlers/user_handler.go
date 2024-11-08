@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"fmt"
-	"httpserver/internal/logger"
 	"httpserver/internal/models"
 	"httpserver/internal/services"
 	"httpserver/internal/web"
+	"httpserver/pkg/logger"
 	"net/http"
 )
 

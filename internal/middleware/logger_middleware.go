@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
-	"httpserver/internal/logger"
 	"httpserver/internal/web"
+	"httpserver/pkg/logger"
 	"net/http"
 	"time"
 )

@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"httpserver/internal/api"
+	"httpserver/api"
 	"httpserver/internal/config"
-	"httpserver/internal/logger"
 	"httpserver/internal/web"
+	"httpserver/pkg/logger"
 	"io"
 	"log"
 	"os"

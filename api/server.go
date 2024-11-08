@@ -1,13 +1,13 @@
 package api
 
 import (
+	"httpserver/api/handlers"
 	"httpserver/internal/config"
 	db "httpserver/internal/db/sqlc"
-	"httpserver/internal/handlers"
-	"httpserver/internal/logger"
 	"httpserver/internal/middleware"
 	"httpserver/internal/services"
 	"httpserver/internal/web"
+	"httpserver/pkg/logger"
 	"net/http"
 )
 

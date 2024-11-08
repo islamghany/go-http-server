@@ -6,7 +6,7 @@ import (
 	"httpserver/internal/config"
 	pgx "httpserver/internal/db/pgx"
 	db "httpserver/internal/db/sqlc"
-	"httpserver/internal/logger"
+	"httpserver/pkg/logger"
 	"net"
 	"net/http"
 	"os"

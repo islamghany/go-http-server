@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
-	"httpserver/internal/validator"
 	"httpserver/internal/web"
+	"httpserver/pkg/validator"
 	"log"
 	"net/http"
 )

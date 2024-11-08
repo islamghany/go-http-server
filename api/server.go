@@ -1,7 +1,7 @@
 package api
 
 import (
-	"httpserver/api/handlers"
+	handlers "httpserver/api/v1"
 	"httpserver/internal/config"
 	db "httpserver/internal/db/sqlc"
 	"httpserver/internal/middleware"

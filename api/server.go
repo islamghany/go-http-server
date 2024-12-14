@@ -1,7 +1,7 @@
 package api
 
 import (
-	handlers "httpserver/api/v1"
+	handlersV1 "httpserver/api/v1"
 	"httpserver/internal/config"
 	db "httpserver/internal/db/sqlc"
 	"httpserver/internal/middleware"
@@ -24,7 +24,7 @@ func NewServer(
 	userService := services.NewUserService(store)
 
 	// Register the routes
-	handlers.NewUserHandler(logger, app, userService).RegisterRoutes()
+	handlersV1.NewUserHandler(logger, app, userService).RegisterRoutes()
 
 	return app
 }

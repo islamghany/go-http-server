@@ -43,9 +43,6 @@ func OpenDBConnection(ctx context.Context, cfg *DBConfig) (*pgx.Conn, error) {
 		return nil, err
 	}
 
-	cfg.MaxIdleConns = cfg.MaxOpenConns
-	cfg.MaxIdleConns = cfg.MaxIdleConns
-
 	db, err := pgx.ConnectConfig(ctx, config)
 	if err != nil {
 		return nil, err

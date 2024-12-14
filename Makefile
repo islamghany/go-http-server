@@ -14,11 +14,21 @@ DATABASE_URL = postgres://root:secret@localhost:5321/blogdb?sslmode=disable
 run:
 	go run cmd/app_name/main.go
 
+run-migrate:
+	go run cmd/admin/main.go migrate
+
+run-migrate-down:
+	go run cmd/admin/main.go migrate-down
+run-init:
+	go run cmd/admin/main.go migrate,seed
+
 build-dev:
 	go build  -ldflags "-X main.version=$(WEB_APP_VERSION) -X main.build=development" -o bin/app_name cmd/app_name/main.go
 
 build-prod:
 	go build -ldflags "-X main.version=$(WEB_APP_VERSION) -X main.build=production" -o bin/app_name cmd/app_name/main.go 
+
+
 
 
 
